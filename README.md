@@ -11,8 +11,9 @@ zig build run -- path/to/audio.wav
 ```
 
 ```sh
-zig build -Dopus=false -Dvorbis=false  # dependency-free pcm build
+zig build -Dopus=false -Dvorbis=false  # dependency-free pcm and flac build
 zig build run -- path/to/audio.ogg
+zig build test -Dopus=false -Dvorbis=false
 ```
 
 ## Roadmap
@@ -20,7 +21,7 @@ zig build run -- path/to/audio.ogg
 The goal is to read, decode, convert, encode, and write mainstream audio formats.
 
 - [ ] create man pages
-- [ ] create unit tests
+- [x] create unit tests (`zig build test`)
 
 ### WAV container
 
@@ -94,7 +95,7 @@ The goal is to read, decode, convert, encode, and write mainstream audio formats
 - [ ] ALAC.
 - [ ] DTS.
 - [ ] EAC3.
-- [ ] FLAC.
+- [x] FLAC (native).
 - [ ] MP3.
 - [ ] Mu-law.
 - [x] Opus (temporary libopus backend).
@@ -107,7 +108,7 @@ The goal is to read, decode, convert, encode, and write mainstream audio formats
 - [ ] MP3 streams.
 - [ ] Ogg container.
 - [ ] ADTS.
-- [ ] FLAC.
+- [x] FLAC (native files with seeking and id3v2 prefixes).
 - [ ] M4A.
 - [ ] AIFF.
 - [ ] AIFC.

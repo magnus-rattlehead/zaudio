@@ -2,6 +2,7 @@
 const std = @import("std");
 const types = @import("types.zig");
 const pcm = @import("codecs/pcm.zig");
+const flac = @import("codecs/flac.zig");
 const opus_enabled = @import("codec_options").opus;
 const vorbis_enabled = @import("codec_options").vorbis;
 const Codec = @This();
@@ -15,6 +16,7 @@ preroll_frames: u64 = 0,
 
 const Backend = union(enum) {
     pcm: *UnitAdapter(pcm),
+    flac: *UnitAdapter(flac),
     opus: if (opus_enabled) *UnitAdapter(@import("codecs/opus.zig")) else void,
     vorbis: if (vorbis_enabled)
         *UnitAdapter(@import("codecs/vorbis.zig"))
@@ -34,6 +36,7 @@ pub fn init(
     }
     return switch (scheme) {
         .pcm => |config| pcm.init(allocator, config, format, options),
+        .flac => |config| flac.init(allocator, config, format, options),
         .opus => |config| {
             if (!opus_enabled) return error.UnsupportedEncoding;
             return @import("codecs/opus.zig")

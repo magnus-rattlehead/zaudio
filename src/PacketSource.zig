@@ -4,12 +4,13 @@ const types = @import("types.zig");
 const Source = @import("Source.zig");
 const Wave = @import("containers/wave/root.zig").Reader;
 const Ogg = @import("containers/ogg/root.zig").Reader;
+const Flac = @import("containers/Flac.zig");
 const PacketSource = @This();
 
 pub const Error = types.Error;
 
-const Backend = union(enum) { wave: *Wave, ogg: *Ogg };
-const containers = .{ Wave, Ogg };
+const Backend = union(enum) { wave: *Wave, ogg: *Ogg, flac: *Flac };
+const containers = .{ Wave, Ogg, Flac };
 
 backend: Backend,
 encoding: types.DecodingScheme,

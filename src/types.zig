@@ -2,7 +2,7 @@
 const std = @import("std");
 
 /// identify the audio container.
-pub const Format = enum { wav, wave64, ogg };
+pub const Format = enum { wav, wave64, ogg, flac };
 
 pub const PcmSampleType = enum {
     unsigned8,
@@ -39,6 +39,7 @@ pub const DecodingScheme = union(enum) {
     pcm: PcmFormat,
     opus: OpusConfig,
     vorbis: VorbisConfig,
+    flac: FlacConfig,
     alaw,
     mulaw,
     unsupported,
@@ -47,6 +48,10 @@ pub const DecodingScheme = union(enum) {
 /// borrow identification, comment, and setup packets in stream order.
 /// keep them unchanged until codec initialization copies their state.
 pub const VorbisConfig = struct { headers: [3][]const u8 };
+
+/// carry the streaminfo values the flac decoder needs; channels and sample
+/// rate come from audioformat.
+pub const FlacConfig = struct { max_block: u16, bits: u8 };
 
 /// configure opus mapping families 0 and 1 in opus/vorbis channel order.
 pub const OpusConfig = struct {

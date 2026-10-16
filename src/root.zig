@@ -28,5 +28,11 @@ pub const Codec = @import("Codec.zig");
 pub const Framer = Codec.Framer;
 pub const OpusConfig = types.OpusConfig;
 pub const VorbisConfig = types.VorbisConfig;
+pub const FlacConfig = types.FlacConfig;
 pub const wave = @import("containers/wave/root.zig");
 pub const ogg = @import("containers/ogg/root.zig");
+
+test {
+    _ = @import("codecs/flac.zig");
+    _ = @import("containers/Flac.zig");
+}

@@ -54,6 +54,10 @@ pub fn build(builder: *std.Build) !void {
     if (builder.args) |args| run.addArgs(args);
     builder.step("run", "Inspect and decode an audio file").dependOn(&run.step);
 
+    const tests = builder.addTest(.{ .root_module = module });
+    builder.step("test", "Run unit tests")
+        .dependOn(&builder.addRunArtifact(tests).step);
+
     const check = builder.step("check", "Compile the example");
     check.dependOn(&example.step);
 }
